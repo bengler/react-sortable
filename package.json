@@ -1,5 +1,5 @@
 {
-  "name": "react-sortable",
+  "name": "@bengler/react-sortable",
   "version": "1.0.0",
   "description": "Make your React components sortable.",
   "main": "index.js",
@@ -34,5 +34,8 @@
     "babel-preset-react": "6.5.x",
     "babel-preset-stage-0": "6.5.x",
     "jest-cli": "11.0.x"
+  },
+  "publishConfig": {
+    "registry": "https://npm.bengler.no"
   }
 }

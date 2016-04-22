@@ -1,5 +1,8 @@
 # React Sortable
 
+Branched from https://github.com/danielstocks/react-sortable because the published version was out of date and included some odd editor-specific compiled files which we simply don't want to distribute to client browsers.
+
+
 ** VERY MUCH WORK IN PROGRESS, CHECKOUT TODO.md **
 
 A React component and mixin for creating sortable interfaces
