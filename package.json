@@ -1,6 +1,6 @@
 {
   "name": "@bengler/react-sortable",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Make your React components sortable.",
   "main": "index.js",
   "scripts": {
