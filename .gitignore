@@ -1,5 +1,6 @@
+.idea
+.DS_Store
 bower_components
 node_modules
-.idea
-gridlist_bundle.js.map
-nested_bundle.js.map
+lib
+npm-debug.log
