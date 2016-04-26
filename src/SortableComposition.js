@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 
 
 /*** Helper functions - they are decoupled from component itself for testability */
@@ -11,10 +11,10 @@ import React from 'react';
  * @returns {array}
  */
 export function swapArrayElements(items, indexFrom, indexTo) {
-  var item = items[indexTo];
-  items[indexTo] = items[indexFrom];
-  items[indexFrom] = item;
-  return items;
+  var item = items[indexTo]
+  items[indexTo] = items[indexFrom]
+  items[indexFrom] = item
+  return items
 }
 
 /**
@@ -25,10 +25,10 @@ export function swapArrayElements(items, indexFrom, indexTo) {
  */
 export function moveArrayElement(items, indexFrom, indexTo) {
   if (indexTo >= items.length) {
-    indexTo = items.length - 1;
+    indexTo = items.length - 1
   }
-  items.splice(indexTo, 0, items.splice(indexFrom, 1)[0]);
-  return items;
+  items.splice(indexTo, 0, items.splice(indexFrom, 1)[0])
+  return items
 }
 
 /**
@@ -38,9 +38,9 @@ export function moveArrayElement(items, indexFrom, indexTo) {
  * @returns {boolean}
  */
 export function isMouseBeyond(mousePos, elementPos, elementSize) {
-  var breakPoint = elementSize / 2; //break point is set to the middle line of element
-  var mouseOverlap = mousePos - elementPos;
-  return mouseOverlap > breakPoint;
+  var breakPoint = elementSize / 2 //break point is set to the middle line of element
+  var mouseOverlap = mousePos - elementPos
+  return mouseOverlap > breakPoint
 }
 
 
@@ -58,38 +58,43 @@ export function SortableComposition(Component) {
       draggingIndex: React.PropTypes.number
     },
 
+
+    getInitialState() {
+      draggingIndex: null
+    },
+
     componentWillReceiveProps(nextProps) {
       this.setState({
         draggingIndex: nextProps.draggingIndex
-      });
+      })
     },
 
     sortEnd() {
       this.props.updateState({
         draggingIndex: null
-      });
+      })
     },
 
     sortStart(e) {
-      const draggingIndex = e.currentTarget.dataset.id;
+      const draggingIndex = e.currentTarget.dataset.id
       this.props.updateState({
         draggingIndex: draggingIndex
-      });
+      })
       this.setState({
         draggingIndex: draggingIndex
-      });
+      })
       //TODO: add support for touch, use condition for e.type
-      e.dataTransfer.effectAllowed = 'move';
-      e.dataTransfer.setData("text/html", null);
+      e.dataTransfer.effectAllowed = 'move'
+      e.dataTransfer.setData("text/html", null)
     },
 
     dragOver(e) {
-      e.preventDefault();
-      var mouseBeyond;
-      var items = this.props.items;
-      const overEl = e.currentTarget; //underlying element
-      const indexDragged = Number(overEl.dataset.id); //index of underlying element in the set DOM elements
-      const indexFrom = Number(this.state.draggingIndex);
+      e.preventDefault()
+      var mouseBeyond
+      var items = this.props.items
+      const overEl = e.currentTarget //underlying element
+      const indexDragged = Number(overEl.dataset.id) //index of underlying element in the set DOM elements
+      const indexFrom = Number(this.state.draggingIndex)
       if (this.props.outline === "list") {
           mouseBeyond = isMouseBeyond(e.clientY, overEl.getBoundingClientRect().top, overEl.getBoundingClientRect().height)
       }
@@ -97,19 +102,19 @@ export function SortableComposition(Component) {
           mouseBeyond = isMouseBeyond(e.clientX, overEl.getBoundingClientRect().left, overEl.getBoundingClientRect().width)
       }
       if(indexDragged !== indexFrom && mouseBeyond){
-        items = moveArrayElement(items, indexFrom, indexDragged);
+        items = moveArrayElement(items, indexFrom, indexDragged)
         this.props.updateState({
           items: items, draggingIndex: indexDragged
-        });
+        })
       }
     },
 
     touchStart(e) {
-      console.log(e.type);
+      console.log(e.type)
     },
 
     isDragging() {
-      return this.props.draggingIndex == this.props.sortId;
+      return this.props.draggingIndex == this.props.sortId
     },
 
     render() {
