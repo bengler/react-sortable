@@ -60,7 +60,9 @@ export function SortableComposition(Component) {
 
 
     getInitialState() {
-      draggingIndex: null
+      return {
+        draggingIndex: null        
+      }
     },
 
     componentWillReceiveProps(nextProps) {
