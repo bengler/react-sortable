@@ -18,6 +18,20 @@ export function swapArrayElements(items, indexFrom, indexTo) {
 }
 
 /**
+ * @param {array} items
+ * @param {number} indexFrom
+ * @param {number} indexTo
+ * @returns {array}
+ */
+export function moveArrayElement(items, indexFrom, indexTo) {
+  if (indexTo >= items.length) {
+    indexTo = items.length - 1;
+  }
+  items.splice(indexTo, 0, items.splice(indexFrom, 1)[0]);
+  return items;
+}
+
+/**
  * @param {number} mousePos
  * @param {number} elementPos
  * @param {number} elementSize
@@ -83,7 +97,7 @@ export function SortableComposition(Component) {
           mouseBeyond = isMouseBeyond(e.clientX, overEl.getBoundingClientRect().left, overEl.getBoundingClientRect().width)
       }
       if(indexDragged !== indexFrom && mouseBeyond){
-        items = swapArrayElements(items, indexFrom, indexDragged);
+        items = moveArrayElement(items, indexFrom, indexDragged);
         this.props.updateState({
           items: items, draggingIndex: indexDragged
         });
@@ -99,21 +113,20 @@ export function SortableComposition(Component) {
     },
 
     render() {
-      var draggingClassName = Component.displayName + "-dragging"
+      var draggingClassName = `${Component.displayName}-dragging`
       return (
-          <div className={this.isDragging() ? draggingClassName : ""}>
-            <Component {...this.props}
-                draggable={true}
-                onDragOver={this.dragOver}
-                onDragStart={this.sortStart}
-                onDragEnd={this.sortEnd}
-                isDragging={this.isDragging}
-                onTouchStart={this.touchStart}
-                data-id={this.props.sortId}/>
-          </div>
+        <div className={this.isDragging() ? draggingClassName : ''}>
+          <Component {...this.props}
+            draggable={true}
+            onDragOver={this.dragOver}
+            onDragStart={this.sortStart}
+            onDragEnd={this.sortEnd}
+            isDragging={this.isDragging}
+            onTouchStart={this.touchStart}
+            data-id={this.props.sortId}/>
+        </div>
       )
     }
 
   })
 }
-
